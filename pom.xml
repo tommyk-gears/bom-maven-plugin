@@ -40,7 +40,7 @@
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2
 			</url>
 		</repository>
 	</distributionManagement>
@@ -63,7 +63,7 @@
 		<maven-source-plugin.version>3.2.0</maven-source-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<maven-scm-provider-gitexe.version>1.11.2</maven-scm-provider-gitexe.version>
-		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
 	</properties>
@@ -195,18 +195,11 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>${maven-release-plugin.version}</version>
 				<configuration>
-					<localCheckout>true</localCheckout>
-					<pushChanges>false</pushChanges>
-					<mavenExecutorId>forked-path</mavenExecutorId>
-					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<goals>deploy</goals>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.scm</groupId>
-						<artifactId>maven-scm-provider-gitexe</artifactId>
-						<version>${maven-scm-provider-gitexe.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -225,7 +218,10 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>release</id>
+			<id>sign</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
