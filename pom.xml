@@ -1,48 +1,53 @@
-<!--
-    Copyright (C) 2015-2016 apifocal LLC - https://www.apifocal.com
-
-    This source code is available under a license agreement available at
-    $HOME/LICENSE
-
-    You should have received a copy of the agreement along with this
-    program; if not, contact apifocal LLC.
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apifocal</groupId>
-        <artifactId>apifocal-parent</artifactId>
-        <version>6</version>
-    </parent>
-
-    <groupId>org.apifocal.maven.plugins</groupId>
+    <groupId>com.github.tommyk-gears</groupId>
     <artifactId>bom-maven-plugin</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>Maven BOM Plugin</name>
     <description>Import dependency management and properties from a BOM project</description>
+    <url>https://github.com/tommyk-gears/bom-maven-plugin</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Tommy Karlsson</name>
+            <email>tommy.karlsson@leovegas.com</email>
+            <organization>LeoVegas</organization>
+            <organizationUrl>https://leovegasgroup.com/</organizationUrl>
+        </developer>
+    </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:apifocal/bom-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:apifocal/bom-maven-plugin.git</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/apifocal/bom-maven-plugin</url>
+        <connection>scm:git:git@github.com:tommyk-gears/bom-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:tommyk-gears/bom-maven-plugin.git</developerConnection>
+        <url>https://github.com/tommyk-gears/bom-maven-plugin</url>
     </scm>
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>https://jenkins.apifocal.org/job/Dev/job/bom-maven-plugin/</url>
-    </ciManagement>
+
+    <prerequisites>
+        <maven>3.3.9</maven>
+    </prerequisites>
 
     <properties>
         <maven.version>3.3.9</maven.version>
+        <sourceReleaseAssemblyDescriptor>source-release</sourceReleaseAssemblyDescriptor>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-plugin-plugin.version>3.5</maven-plugin-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.2.0</maven-source-plugin.version>
     </properties>
 
     <dependencies>
@@ -89,8 +94,10 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven-plugin-plugin.version}</version>
                 <configuration>
                     <goalPrefix>bom</goalPrefix>
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
@@ -106,6 +113,47 @@
                         <id>help-goal</id>
                         <goals>
                             <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                    <compilerArgument>-Xlint:unchecked,deprecation,fallthrough,finally</compilerArgument>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -158,5 +206,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

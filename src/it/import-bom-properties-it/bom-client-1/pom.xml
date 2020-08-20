@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apifocal.maven.plugins.it.bom.properties</groupId>
+        <groupId>com.github.tommyk-gears.maven.plugins.it.bom.properties</groupId>
         <artifactId>import-bom-properties-it</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -19,7 +19,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apifocal.maven.plugins.it.bom.properties</groupId>
+                <groupId>com.github.tommyk-gears.maven.plugins.it.bom.properties</groupId>
                 <artifactId>bom</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <type>pom</type>

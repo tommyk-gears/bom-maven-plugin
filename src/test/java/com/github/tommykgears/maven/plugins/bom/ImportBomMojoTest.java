@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 apifocal LLC.
+ * Copyright 2020 tommyk-gears.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apifocal.maven.plugins.bom;
+package com.github.tommykgears.maven.plugins.bom;
 
 import java.io.File;
 import org.apache.maven.model.Dependency;
@@ -21,18 +21,6 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 public class ImportBomMojoTest extends AbstractMojoTestCase {
 
-//    @Override
-//    protected void setUp() throws Exception {
-//        // required
-//        super.setUp();
-//    }
-//
-//    @Override
-//    protected void tearDown() throws Exception {
-//        // required
-//        super.tearDown();
-//    }
-//
     public void testImportPropertiesMojo() throws Exception {
         File pom = getTestFile("src/test/resources/test-project.xml");
         assertNotNull(pom);
