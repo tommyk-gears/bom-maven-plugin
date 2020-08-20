@@ -16,6 +16,7 @@
 package com.github.tommykgears.maven.plugins.bom;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
@@ -42,6 +43,9 @@ public class ImportPropertiesMojo extends AbstractMojo {
 	@Parameter(required = true)
 	protected List<Dependency> artifacts;
 
+	@Parameter
+	private String includeProperties;
+
 	//// standard maven properties
 	@Parameter(defaultValue = "${project}", readonly = true, required = true)
 	protected MavenProject project;
@@ -67,12 +71,22 @@ public class ImportPropertiesMojo extends AbstractMojo {
 			MavenProject bomProject = projectBuilder.build(artifact, buildingRequest).getProject();
 
 			bomProject.getProperties()
-					.forEach((Object key, Object value) -> project.getProperties().putIfAbsent(key, value));
+					.entrySet()
+					.stream()
+					.filter(e -> isIncluded(e.getKey()))
+					.forEach(e -> project.getProperties().putIfAbsent(e.getKey(), e.getValue()));
 		}
 		catch (ProjectBuildingException ex) {
 			getLog().error("Failed to resolve artifact", ex);
 			throw new MojoExecutionException("Could not read artifact " + artifactMetadata.toString(), ex);
 		}
+	}
+
+	private boolean isIncluded(Object key) {
+		if (includeProperties == null || includeProperties.isEmpty()) {
+			return true;
+		}
+		return Objects.toString(key).matches(includeProperties);
 	}
 
 	@Override

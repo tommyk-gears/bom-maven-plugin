@@ -8,3 +8,5 @@ propertiesFile.withInputStream {
 }
 
 assert properties."test.property" == "test.value"
+assert properties."included.property" == "foo"
+assert properties."excluded.property" == "\${excluded.property}"

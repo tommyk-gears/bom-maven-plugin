@@ -33,6 +33,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <includeProperties>(test.*)|(include.*)</includeProperties>
                     <artifacts>
                     <dependency>
                         <groupId>com.github.tommyk-gears.maven.plugins.it.samebuild</groupId>

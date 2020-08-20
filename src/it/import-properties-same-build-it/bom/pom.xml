@@ -15,6 +15,8 @@
 
     <properties>
         <test.property>test.value</test.property>
+        <included.property>foo</included.property>
+        <excluded.property>bar</excluded.property>
     </properties>
 
 </project>
